@@ -1,3 +1,13 @@
+THIS PROJECT IS STILL BEING PUT TOGETHER. 
+I'm just getting used to using github as my personal space. rTally will be operational around January 2019
+
+Soon!
+
+ - Allan
+ December 1, 2018.
+ __________________
+ 
+ 
 One of the annoying things with using a steadycam rig for live productions (apart from balance, camera roll and the rig’s weight) is the lack of a tally. 
 
 I’ve designed a simple radio tally system that can communicate with up to 8 cameras wirelessly. It uses cheap transmitter/receiver combos available from eBay. They operate in the 600MHz band so check your local regulations. 
