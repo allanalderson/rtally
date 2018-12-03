@@ -1,5 +1,5 @@
 THIS PROJECT IS STILL BEING PUT TOGETHER. 
-I'm just getting used to using github as my personal space. rTally will be operational around January 2019
+I'm currently using github as my personal space. rTally will be operational around January 2019
 
 Soon!
 
