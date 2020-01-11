@@ -12,6 +12,10 @@
   Tone frequencies are adjusted and documented
   Tone pulsewidths set to 80mS
   Zero not available, only 1-255
+  v0.5 Prints ID @ 1200 baud. Various refactoring.
+  V01 Tally to and from byte.
+  v02 decimal()
+  v03 removed unused counters
 
 
 
@@ -27,17 +31,17 @@ bool tally6 = false;
 bool tally7 = false;
 bool tally8 = false;
 bool tally9 = false;
-byte b;
-int toneDurationAdjust = -100; // Use -100 ; 0 (80mS).  
-int tallyCount = 0;
-unsigned long testScheduleCounter = 0;
-
+int toneDurationAdjust = -100; // Use -100 ; 0 (80mS).
+byte tallyByte = 0;
 
 
 void setup()
 {
-  Serial.begin(19200);
-  
+  Serial.begin(1200);
+  Serial.println("");
+  Serial.println("rTallyTx v03");
+  Serial.println("");
+
   pinMode(10, INPUT_PULLUP); // sync
   pinMode(11, INPUT_PULLUP); // 1
   pinMode(2, INPUT_PULLUP);  // 2
@@ -54,26 +58,59 @@ void setup()
   TCCR0A = 0;
   playLongToneREF();
 
+  for (int i = 0; i <= 7; i++)
+  {
+    readTally_oneHotChase();
+    printTallys();
+    sendTallyTones();
+  }
+  readTally_decimal(0);
+  printTallys();
+  sendTallyTones();
 }
+
+
+//THE POSSIBILITIES ARE ENDLESS :)
+//readTallyPins();
+//readTally_binaryCountUp();
+//readTally_oneHotChase();
+//readTally_decimal(170); // (85) (x) force the byte
+//printTallys();
+//sendTallyTones();
+
+
 
 void loop()
 {
-  //readTallyPins();
-  //tallyScheduleTestSWITCH();
-  //tallyScheduleTestCOUNT();
-  tallyScheduleTest170();
-  //printTallys();
-  //printTallyTones();
-  sendTallyTones();
-  tallyScheduleTest85();
+  readTallyPins();
+  printTallys();
   sendTallyTones();
 }
 
+
+
+
+void readTallyPins()
+{
+  tally1 = digitalRead(11);
+  tally2 = digitalRead(2);
+  tally3 = digitalRead(3);
+  tally4 = digitalRead(4);
+  tally5 = digitalRead(5);
+  tally6 = digitalRead(6);
+  tally7 = digitalRead(7);
+  tally8 = digitalRead(8);
+  generateTallyByteFromTallys();
+}
+
+
+
+
+
+
 void sendTallyTones()
 {
-  
   playToneREF();
-
   if (tally8 == true)
   {
     playTone8();
@@ -106,53 +143,40 @@ void sendTallyTones()
   {
     playTone1();
   }
-
-
 }
 
 
 
-void readTallyPins()
+
+
+
+
+
+
+void generateTallyByteFromTallys() //
 {
-  tally1 = digitalRead(11);
-  tally2 = digitalRead(2);
-  tally3 = digitalRead(3);
-  tally4 = digitalRead(4);
-  tally5 = digitalRead(5);
-  tally6 = digitalRead(6);
-  tally7 = digitalRead(7);
-  tally8 = digitalRead(8);
-  tallyCount = 0;
-  if (tally1 == true)
-  {
-    tallyCount++;
-  }
-  if (tally2 == true)
-  {
-    tallyCount++;
-  }
-  if (tally3 == true)
-  {
-    tallyCount++;
-  }
-  if (tally4 == true)
-  {
-    tallyCount++;
-  }
-  if (tally5 == true)
-  {
-    tallyCount++;
-  }
-  if (tally6 == true)
-  {
-    tallyCount++;
-  }
-  if (tally7 == true)
-  {
-    tallyCount++;
-  }
-  if (tally8 == true)
-  {
-    tallyCount++;
-  }
+  tallyByte = tally8 * 128 + tally7 * 64 + tally6 * 32 + tally5 * 16 + tally4 * 8 + tally3 * 4 + tally2 * 2 + tally1 * 1;
+}
+
+
+
+
+void generateTallysFromTallyByte()
+{
+  tally1 = tallyByte & 1;
+  tally2 = tallyByte & 2;
+  tally3 = tallyByte & 4;
+  tally4 = tallyByte & 8;
+  tally5 = tallyByte & 16;
+  tally6 = tallyByte & 32;
+  tally7 = tallyByte & 64;
+  tally8 = tallyByte & 128;
+}
+
+
+
+void readTally_decimal(byte decimal)
+{
+  tallyByte = decimal;
+  generateTallysFromTallyByte();
 }

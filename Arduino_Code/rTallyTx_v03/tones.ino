@@ -2,7 +2,7 @@
 // -------------------------------------------
 void playToneREF()  // for about half a second
 {
-
+//Serial.println ("REF_TONE");
   TCCR0B = 0;//Disable Timer
   for (int i = 0; i < 1400; i++) // Use 1400
   {
@@ -12,9 +12,13 @@ void playToneREF()  // for about half a second
     delayMicroseconds(51 + freqAdjust);
   }
   TCCR0B = 1; // Enable Timer
+  
 }
+
+
 void playLongToneREF()
 {
+  //Serial.println ("REF_TONE (LONG)");
   TCCR0B = 0;//Disable Timer
   for (int i = 0; i < 16000; i++) 
   {
@@ -24,6 +28,7 @@ void playLongToneREF()
     delayMicroseconds(51 + freqAdjust);
   }
   TCCR0B = 1; // Enable Timer
+  
 }
 // -------------------------------------------
 // -------------------------------------------
