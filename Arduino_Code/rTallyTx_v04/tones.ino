@@ -1,4 +1,4 @@
-
+// Output pin is D12 
 // -------------------------------------------
 void playToneREF()  // for about half a second
 {
