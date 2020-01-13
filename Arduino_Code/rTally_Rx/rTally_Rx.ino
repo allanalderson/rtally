@@ -1,34 +1,9 @@
 
 
 /*
-  New calibration freq.
-  CHANGES TO REF TRACKING
-  Superfast ADC reads. ( MAX SAMPLING_FREQUENCY 61656 )
-  Code tidy.
-  slowdown sample
-  More plot options
-  Now using 128 point fft
-  smoother ref averaging
-  Plot Camera ID
 
-  No Signal Noise fixing with averaging soon
-
-  ref tone bandwith narrowing if refLocked
-
-  added toneAperature
-  Refactoring
-  Requires a ref tone prior to tone detection before switching
-  31 Camera Booleans,Refactoring,Killtallys bug fixed
-  32 Killtallys bug fixed
-  50 Start:
-  51 8 tones (or !tones) are sent  between each ref tone: R+--+--R+--+--R+--+--R+--+--
-  Expecting corrected tone frequencies
-
-  Using tone list
-
-  Need to implement: If peak not legal, then wait for a while. or Polite.
-  Polite OK
   v02 get Tally ID
+  v03 Code Tidy.
 
 */
 
@@ -113,7 +88,7 @@ void setup()
   cbi(ADCSRA, ADPS0) ;
 #endif
   Serial.println();
-  Serial.println("rTallyRX v01");
+  Serial.println("rTally_Rx v03");
   clearTallyMemories();
   clearTallys();
 }
