@@ -1,22 +1,8 @@
 /*
-  Ready to  test the reciever's ref tracking system
-  Fast wide staircase
-  Fast narrow staircase
-  Single Wide tone staircase with ref
-  25 step back to V21
-  40 Combined test OK
-  41 adding camera switch scheudle test
-  50 Start:
-  8 tones (or !tones) are sent  between each ref tone: R+--+--R+--+--R+--+--R+--+--
-  Suitable for binary transmittion (with some errors).
-  Tone frequencies are adjusted and documented
-  Tone pulsewidths set to 80mS
-  Zero not available, only 1-255
-  v0.5 Prints ID @ 1200 baud. Various refactoring.
-  V01 Tally to and from byte.
-  v02 decimal()
+
   v03 removed unused counters.
   v04 Code Tidy/ Baud 9600
+  v05 Inverted tally pins (for active Low) & chase if no tally input.
 
 
 
@@ -40,7 +26,7 @@ void setup()
 {
   Serial.begin(9600);
   Serial.println("");
-  Serial.println("rTallyTx v04");
+  Serial.println("rTallyTx v05");
   Serial.println("");
 
   pinMode(10, INPUT_PULLUP); // sync
@@ -62,13 +48,13 @@ void setup()
   for (int i = 0; i <= 7; i++)
   {
     readTally_oneHotChase();
-    //readTally_binaryCountUp();
     sendTallyTones();
-    delay(20000); // not twenty seconds!
+    delay(20000); // not really this long!
   }
-  readTally_decimal(0);
+  tallyByte = 0;
   sendTallyTones();
 }
+
 
 
 //THE POSSIBILITIES ARE ENDLESS :)
