@@ -2,7 +2,7 @@
 
   v03 removed unused counters.
   v04 Code Tidy/ Baud 9600
-  v05 Inverted tally pins (for active Low) & chase if no tally input.
+  v05 Inverted tally pins (for active Low) & chase if no tally input. Bug in pullup input 11 and 8.
 
 
 
@@ -30,15 +30,15 @@ void setup()
   Serial.println("");
 
   pinMode(10, INPUT_PULLUP); // sync
-  pinMode(11, INPUT_PULLUP); // 1
+  pinMode(11, INPUT_PULLUP); // 1 BUG: no pullup
   pinMode(2, INPUT_PULLUP);  // 2
   pinMode(3, INPUT_PULLUP);  // 3
   pinMode(4, INPUT_PULLUP);  // 4
   pinMode(5, INPUT_PULLUP);  // 5
   pinMode(6, INPUT_PULLUP);  // 6
   pinMode(7, INPUT_PULLUP);  // 7
-  pinMode(8, INPUT_PULLUP);  // 8
-  pinMode(9, INPUT_PULLUP);  // 9
+  pinMode(8, INPUT_PULLUP);  // 8 BUG: no pullup
+
 
 
   DDRB = B11010000; //tone pin  is in output mode

@@ -11,7 +11,7 @@ void readTallyPins()
   tally7 = !digitalRead(7);
   tally8 = !digitalRead(8);
 
-  if (tally1 = 0 && tally2 = 0 && tally3 = 0 && tally4 = 0 && tally5 = 0 && tally6 = 0 && tally7 = 0 && tally8 = 0)
+  if (tally1 == false && tally2 == false && tally3 == false && tally4 == false && tally5 == false && tally6 == false && tally7 == false && tally8 == false)
   {
     readTally_oneHotChase();
     delay(10000); // not really this long!
