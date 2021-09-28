@@ -13,8 +13,8 @@ void readTallyPins()
 
   if (tally1 == false && tally2 == false && tally3 == false && tally4 == false && tally5 == false && tally6 == false && tally7 == false && tally8 == false)
   {
+    Serial.print("No tally!  ");
     readTally_oneHotChase();
-    delay(10000); // not really this long!
   }
   else
   {
