@@ -1,3 +1,4 @@
+UNFINISHED: 
 rTally will be tested and (hopefully) fully operational around October 2019.
  
 Latest:
